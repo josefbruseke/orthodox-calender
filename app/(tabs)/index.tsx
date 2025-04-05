@@ -28,7 +28,12 @@ export default function HomeScreen() {
 
   useEffect(() => {
     const date = new Date();
-    const formattedDate = date.toISOString().slice(0, 10);
+    const formattedDate = new Intl.DateTimeFormat('en-CA', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone // Get user's timezone
+    }).format(date).replace(/(\d{4})-(\d{2})-(\d{2})/, '$1-$2-$3'); // Ensure YYYY-MM-DD format
     setCurrentDate(formattedDate);
 
     const fetchData = async () => {
@@ -55,7 +60,7 @@ export default function HomeScreen() {
         {/* Date Header */}
         <View style={styles.dateHeader}>
           <Text style={styles.dateText}>
-            {new Date().toLocaleDateString('pt-BR', { 
+            {new Date().toLocaleDateString('en', {
               weekday: 'long', 
               day: 'numeric', 
               month: 'long', 
