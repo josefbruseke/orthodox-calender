@@ -1,8 +1,7 @@
 import { StyleSheet, View, Text, ScrollView } from 'react-native';
 import { useState, useEffect } from 'react';
 
-const DATA_URL =
-  'https://marjwkpvsvsqdzjjnrrt.supabase.co/storage/v1/object/sign/orthodox-calendar-2025/orthodox_calendar_2025.json?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJvcnRob2RveC1jYWxlbmRhci0yMDI1L29ydGhvZG94X2NhbGVuZGFyXzIwMjUuanNvbiIsImlhdCI6MTc0MzY0NjE0NCwiZXhwIjoxNzc1MTgyMTQ0fQ.IrfgGMqFbHjuJe2nWDkcWJwbbMB9o-PF8EmN-Xmu37A';
+const DATA_URL = process.env.DATA_URL;
 
 interface ReadingItem {
   source?: string;
