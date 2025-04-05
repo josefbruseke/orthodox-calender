@@ -81,11 +81,13 @@ export default function HomeScreen() {
 
               const formattedKey =
                 key === 'old_testament'
-                  ? 'Antigo Testamento'
+                  ? 'Old Testament'
                   : key === 'gospel'
-                  ? 'Evangelho'
+                    ? 'Gospel'
+                    : key === 'matins_gospel'
+                      ? 'Matins Gospel'
                   : key === 'epistle'
-                  ? 'Epístola'
+                        ? 'Epistle'
                   : key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, ' ');
 
               return (
@@ -108,7 +110,7 @@ export default function HomeScreen() {
         {/* Saints and Feasts Section */}
         {data?.saints_and_feasts && data.saints_and_feasts.length > 0 && (
           <View style={styles.section}>
-            <Text style={styles.sectionHeader}>Santos e Festas</Text>
+            <Text style={styles.sectionHeader}>Saints and Feasts</Text>
             {data.saints_and_feasts.map((saint, index) => (
               <Text key={index} style={styles.saintText}>
                 • {saint}
