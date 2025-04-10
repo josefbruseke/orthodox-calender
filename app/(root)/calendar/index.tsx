@@ -3,6 +3,9 @@ import { useState, useEffect } from 'react';
 import { MaterialIcons } from '@expo/vector-icons';
 import { getCurrentFormattedDate } from '@/utils/date';
 import { useRouter } from 'expo-router';
+import FastingLegend from '@/components/FastingLegend';
+import Modal from '@/components/Modal';
+
 
 interface DayData {
   date: string;
@@ -35,12 +38,12 @@ export default function Calendar() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [monthData, setMonthData] = useState<{ [date: string]: DayEntry }>({});
   const [loading, setLoading] = useState(true);
+  const [showLegendModal, setShowLegendModal] = useState(false);
 
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
   const todayFormatted = getCurrentFormattedDate();
   const router = useRouter();
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -134,6 +137,13 @@ export default function Calendar() {
         </TouchableOpacity>
       </View>
 
+      <TouchableOpacity
+        style={styles.legendButton}
+        onPress={() => setShowLegendModal(true)}
+      >
+        <Text style={styles.legendButtonText}>Fasting Legend</Text>
+      </TouchableOpacity>
+
       <View style={styles.dayNames}>
         {dayNames.map(day => (
           <Text key={day} style={styles.dayNameText}>{day}</Text>
@@ -150,7 +160,7 @@ export default function Calendar() {
           numColumns={7}
           keyExtractor={(_, index) => index.toString()}
           renderItem={({ item: day }) => (
-            <TouchableOpacity // Change View to TouchableOpacity
+            <TouchableOpacity
               style={[
                 styles.dayCell,
                 !day && styles.emptyDay,
@@ -179,6 +189,14 @@ export default function Calendar() {
           )}
         />
       )}
+
+      {/* Fasting Legend Modal */}
+      <Modal
+        visible={showLegendModal}
+        onClose={() => setShowLegendModal(false)}
+      >
+        <FastingLegend />
+      </Modal>
     </View>
   );
 }
@@ -200,6 +218,18 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: '#CF4A46',
+  },
+  legendButton: {
+    backgroundColor: '#CF4A46',
+    padding: 10,
+    borderRadius: 8,
+    marginBottom: 16,
+    alignSelf: 'flex-start', // Changed from 'center' to 'flex-start'
+  },
+  legendButtonText: {
+    color: '#FBF9F8',
+    fontWeight: 'bold',
+    fontSize: 16,
   },
   dayNames: {
     flexDirection: 'row',
@@ -244,5 +274,29 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  centeredModalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+  },
+  centeredModalContent: {
+    backgroundColor: '#FBF9F8',
+    borderRadius: 10,
+    padding: 20,
+    width: '90%',
+    maxWidth: 500,
+    maxHeight: '80%',
+  },
+  closeButton: {
+    position: 'absolute',
+    right: 10,
+    top: 10,
+    zIndex: 1,
+  },
+  closeButtonText: {
+    fontSize: 24,
+    color: '#CF4A46',
   },
 });
