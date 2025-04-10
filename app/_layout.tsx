@@ -24,10 +24,10 @@ export default function LoadingLayout() {
   }
 
   return (
-      <Stack>
-        <Stack.Screen name="(root)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-        <StatusBar style="auto" />
-      </Stack>
+    <Stack>
+      <Stack.Screen name="(root)" options={{ headerShown: false }} />
+      <Stack.Screen name="+not-found" />
+      <StatusBar style="auto" />
+    </Stack>
   );
 }
