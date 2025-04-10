@@ -3,13 +3,7 @@ import { useState, useEffect } from 'react';
 
 const DATA_URL = process.env.EXPO_PUBLIC_DATA_URL;
 
-const fastingLegend = [
-  { symbol: require('@/assets/icons/strict_fast_icon.webp'), text: 'Strict Fast: Refrain from meat, fish, oil, wine, dairy, and eggs.' },
-  { symbol: require('@/assets/icons/wine_oil_icon.webp'), text: 'Wine & Oil: Wine and oil are allowed. Refrain from meat, fish, dairy, and eggs.' },
-  { symbol: require('@/assets/icons/fish_icon.webp'), text: 'Fish, oil and wine are allowed: Refrain from meat, dairy and eggs.' },
-  { symbol: require('@/assets/icons/cheese_icon.webp'), text: 'Dairy Allowed: Dairy, eggs, fish, oil and wine are allowed. Refrain from meat.' },
-  { symbol: null, text: 'No Symbol - Fast Free: All Foods Allowed.' },
-];
+// Remove the fastingLegend array since it's now handled by the FastingLegend component
 
 interface ReadingItem {
   reference?: string;
@@ -69,7 +63,6 @@ export default function CalendarView({ date }: CalendarViewProps) {
   }, [date]);
 
   const [year, month, day] = date.split('-').map(Number);
-
   const dateObj = new Date(year, month - 1, day);
   
   const readableDate = dateObj.toLocaleDateString('en', {
@@ -79,6 +72,11 @@ export default function CalendarView({ date }: CalendarViewProps) {
     year: 'numeric',
   });
 
+  const handleReadingPress = (reading: ReadingItem) => {
+    setSelectedReading(reading);
+    setShowReadingsModal(true);
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.content}>
@@ -87,6 +85,13 @@ export default function CalendarView({ date }: CalendarViewProps) {
         </View>
 
         <Text style={styles.title}>{data?.summary || 'Loading...'}</Text>
+
+        <TouchableOpacity
+          style={styles.legendButton}
+          onPress={() => setShowLegendModal(true)}
+        >
+          <Text style={styles.legendButtonText}>Fasting Legend</Text>
+        </TouchableOpacity>
 
         {data?.fast_type && (
           <View style={styles.section}>
