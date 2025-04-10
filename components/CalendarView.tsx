@@ -1,5 +1,7 @@
-import { StyleSheet, View, Text, ScrollView, Image } from 'react-native'; 
+import { StyleSheet, View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { useState, useEffect } from 'react';
+import FastingLegend from '@/components/FastingLegend'; // Add this import
+import Modal from '@/components/Modal';
 
 const DATA_URL = process.env.EXPO_PUBLIC_DATA_URL;
 
@@ -30,6 +32,9 @@ interface CalendarViewProps {
 
 export default function CalendarView({ date }: CalendarViewProps) {
   const [data, setData] = useState<CalendarData | null>(null);
+  const [selectedReading, setSelectedReading] = useState<ReadingItem | null>(null);
+  const [showReadingsModal, setShowReadingsModal] = useState(false);
+  const [showLegendModal, setShowLegendModal] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -64,7 +69,7 @@ export default function CalendarView({ date }: CalendarViewProps) {
 
   const [year, month, day] = date.split('-').map(Number);
   const dateObj = new Date(year, month - 1, day);
-  
+
   const readableDate = dateObj.toLocaleDateString('en', {
     weekday: 'long',
     day: 'numeric',
@@ -96,19 +101,11 @@ export default function CalendarView({ date }: CalendarViewProps) {
         {data?.fast_type && (
           <View style={styles.section}>
             <Text style={styles.sectionHeader}>{data.fast_type}</Text>
-            {(() => {
-              const match = fastingLegend.find((entry) =>
-                data.fast_type?.toLowerCase().includes(entry.text.split(':')[0].toLowerCase())
-              );
-
-              return (
-                <View style={[styles.fastContainer, { justifyContent: 'center' }]}>
-                  <Text style={[styles.readingText, { textAlign: 'center' }]}>
-                    {match?.text || data.fast_type}
-                  </Text>
-                </View>
-              );
-            })()}
+            <View style={[styles.fastContainer, { justifyContent: 'center' }]}>
+              <Text style={[styles.readingText, { textAlign: 'center' }]}>
+                {data.fast_type}
+              </Text>
+            </View>
           </View>
         )}
 
@@ -122,20 +119,25 @@ export default function CalendarView({ date }: CalendarViewProps) {
                 key === 'old_testament'
                   ? 'Old Testament'
                   : key === 'gospel'
-                  ? 'Gospel'
-                  : key === 'matins_gospel'
-                  ? 'Matins Gospel'
-                  : key === 'epistle'
-                  ? 'Epistle'
-                  : key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, ' ');
+                    ? 'Gospel'
+                    : key === 'matins_gospel'
+                      ? 'Matins Gospel'
+                      : key === 'epistle'
+                        ? 'Epistle'
+                        : key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, ' ');
 
               return (
                 <View key={key} style={styles.readingItem}>
                   <Text style={styles.readingTitle}>{formattedKey}</Text>
                   {readingsArray.map((item, index) => (
-                    <Text key={`${key}-${index}`} style={styles.readingText}>
-                      {item.reference}
-                    </Text>
+                    <TouchableOpacity
+                      key={`${key}-${index}`}
+                      onPress={() => handleReadingPress(item)}
+                    >
+                      <Text style={[styles.readingText, styles.readingLink]}>
+                        {item.reference}
+                      </Text>
+                    </TouchableOpacity>
                   ))}
                 </View>
               );
@@ -153,10 +155,30 @@ export default function CalendarView({ date }: CalendarViewProps) {
           </View>
         )}
       </ScrollView>
+
+      {/* Readings Modal */}
+      <Modal
+        visible={showReadingsModal}
+        onClose={() => setShowReadingsModal(false)}
+        title={selectedReading?.reference}
+      >
+        <ScrollView>
+          <Text style={styles.modalText}>{selectedReading?.text}</Text>
+        </ScrollView>
+      </Modal>
+
+      {/* Fasting Legend Modal - Now using the FastingLegend component */}
+      <Modal
+        visible={showLegendModal}
+        onClose={() => setShowLegendModal(false)}
+      >
+        <FastingLegend />
+      </Modal>
     </View>
   );
 }
 
+// Keep the existing styles unchanged
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -229,6 +251,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingHorizontal: 8,
   },
+  readingLink: {
+    color: '#CF4A46',
+    textDecorationLine: 'underline',
+  },
   saintText: {
     color: '#333',
     fontSize: 15,
@@ -247,5 +273,22 @@ const styles = StyleSheet.create({
   fastIcon: {
     width: 28,
     height: 28,
+  },
+  legendButton: {
+    backgroundColor: '#CF4A46',
+    padding: 10,
+    borderRadius: 8,
+    marginBottom: 16,
+    alignSelf: 'center',
+  },
+  legendButtonText: {
+    color: '#FBF9F8',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  modalText: {
+    color: '#333',
+    fontSize: 16,
+    lineHeight: 24,
   },
 });
