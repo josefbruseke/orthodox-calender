@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, ScrollView, Modal as RNModal } from 'react-native';
 import React from 'react';
 
 interface ModalProps {
@@ -16,39 +16,39 @@ const Modal: React.FC<ModalProps> = ({
     children,
     contentStyle,
 }) => {
-    if (!visible) return null;
-
     return (
-        <View style={styles.modalContainer}>
-            <View style={[styles.modalContent, contentStyle]}>
-                <TouchableOpacity style={styles.closeButton} onPress={onClose}>
-                    <Text style={styles.closeButtonText}>×</Text>
-                </TouchableOpacity>
-                {title && <Text style={styles.modalTitle}>{title}</Text>}
-                {typeof children === 'string' ? (
-                    <ScrollView>
-                        <Text style={styles.modalText}>{children}</Text>
-                    </ScrollView>
-                ) : (
-                    children
-                )}
+        <RNModal
+            visible={visible}
+            transparent={true}
+            animationType="fade"
+            onRequestClose={onClose}
+        >
+            <View style={styles.modalContainer}>
+                <View style={[styles.modalContent, contentStyle]}>
+                    <TouchableOpacity style={styles.closeButton} onPress={onClose}>
+                        <Text style={styles.closeButtonText}>×</Text>
+                    </TouchableOpacity>
+                    {title && <Text style={styles.modalTitle}>{title}</Text>}
+                    {typeof children === 'string' ? (
+                        <ScrollView>
+                            <Text style={styles.modalText}>{children}</Text>
+                        </ScrollView>
+                    ) : (
+                        children
+                    )}
+                </View>
             </View>
-        </View>
+        </RNModal>
     );
 };
 
 const styles = StyleSheet.create({
     modalContainer: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
+        flex: 1,
         backgroundColor: 'rgba(0,0,0,0.5)',
         justifyContent: 'center',
         alignItems: 'center',
         padding: 20,
-        zIndex: 1000,
     },
     modalContent: {
         backgroundColor: '#FBF9F8',
