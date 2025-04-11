@@ -14,8 +14,12 @@ export default function FastingLegend() {
     const isMediumScreen = width >= 400 && width < 700;
     const isLargeScreen = width >= 700;
 
-    // For large screens, we'll split the items into two columns
-    const renderItem = ({ item, index }) => (
+    interface FastingLegendItem {
+        symbol: any | null;
+        text: string;
+    }
+    
+    const renderItem = ({ item, index }: { item: FastingLegendItem; index: number }) => (
         <View
             style={[
                 styles.section,

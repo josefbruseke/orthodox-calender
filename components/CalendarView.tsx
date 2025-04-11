@@ -129,7 +129,7 @@ export default function CalendarView({ date }: CalendarViewProps) {
               return (
                 <View key={key} style={styles.readingItem}>
                   <Text style={styles.readingTitle}>{formattedKey}</Text>
-                  {readingsArray.map((item, index) => (
+                  {readingsArray.map((item: ReadingItem, index: any) => (
                     <TouchableOpacity
                       key={`${key}-${index}`}
                       onPress={() => handleReadingPress(item)}
