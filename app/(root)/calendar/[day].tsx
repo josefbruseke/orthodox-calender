@@ -10,7 +10,7 @@ export default function CalendarDay() {
     <View style={{ flex: 1, backgroundColor: "#FBF8F6" }}>
       {/* Custom back button */}
     <TouchableOpacity
-      onPress={() => router.back()}
+      onPress={() => router.push("/calendar")}
       style={{
         flexDirection: "row",
         alignItems: "center",
