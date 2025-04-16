@@ -218,18 +218,20 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: '#CF4A46',
+    textAlign: 'center',
   },
   legendButton: {
     backgroundColor: '#CF4A46',
     padding: 10,
     borderRadius: 8,
     marginBottom: 16,
-    alignSelf: 'flex-start', // Changed from 'center' to 'flex-start'
+    alignSelf: 'center', // Changed from 'flex-start' to 'center'
   },
   legendButtonText: {
     color: '#FBF9F8',
     fontWeight: 'bold',
     fontSize: 16,
+    textAlign: 'center',
   },
   dayNames: {
     flexDirection: 'row',
@@ -264,11 +266,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#333',
     marginBottom: 2,
+    textAlign: 'center',
   },
   fastIcon: {
     width: 24,
     height: 24,
     marginBottom: 2,
+    alignSelf: 'center',
   },
   loadingContainer: {
     flex: 1,
@@ -288,6 +292,7 @@ const styles = StyleSheet.create({
     width: '90%',
     maxWidth: 500,
     maxHeight: '80%',
+    alignSelf: 'center',
   },
   closeButton: {
     position: 'absolute',
@@ -298,5 +303,6 @@ const styles = StyleSheet.create({
   closeButtonText: {
     fontSize: 24,
     color: '#CF4A46',
+    textAlign: 'center',
   },
 });

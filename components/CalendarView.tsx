@@ -2,10 +2,10 @@ import { StyleSheet, View, Text, ScrollView, Image, TouchableOpacity } from 'rea
 import { useState, useEffect } from 'react';
 import FastingLegend from '@/components/FastingLegend'; // Add this import
 import Modal from '@/components/Modal';
+import { fastingRules } from '@/constants/FastingRules';
 
 const DATA_URL = process.env.EXPO_PUBLIC_DATA_URL;
 
-// Remove the fastingLegend array since it's now handled by the FastingLegend component
 
 interface ReadingItem {
   reference?: string;
@@ -82,6 +82,8 @@ export default function CalendarView({ date }: CalendarViewProps) {
     setShowReadingsModal(true);
   };
 
+  const fastInfo = data?.fast_type ? fastingRules[data.fast_type] : undefined;
+
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.content}>
@@ -102,9 +104,13 @@ export default function CalendarView({ date }: CalendarViewProps) {
           <View style={styles.section}>
             <Text style={styles.sectionHeader}>{data.fast_type}</Text>
             <View style={[styles.fastContainer, { justifyContent: 'center' }]}>
-              <Text style={[styles.readingText, { textAlign: 'center' }]}>
-                {data.fast_type}
-              </Text>
+              {fastInfo?.symbol && (
+                <Image
+                  source={fastInfo.symbol}
+                  style={{ width: 25, height: 25 }}
+                  resizeMode="contain"
+                />
+              )}
             </View>
           </View>
         )}

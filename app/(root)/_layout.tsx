@@ -18,7 +18,7 @@ export default function RootLayout() {
           tabBarLabelStyle: styles.tabBarLabel,
           tabBarActiveTintColor: '#FFFFFF', // White for selected tab
           tabBarInactiveTintColor: 'rgba(255,255,255,0.7)', // Slightly transparent white
-          tabBarShowLabel: true,
+          tabBarShowLabel: false, // Changed from true to false to hide labels
         }}
       >
         <Tabs.Screen
@@ -44,12 +44,12 @@ export default function RootLayout() {
           }}
         />
         <Tabs.Screen
-          name="legend"
+          name="donation"
           options={{
-            title: 'Legend',
+            title: 'Donation',
             tabBarIcon: ({ color, size }) => (
               <View style={styles.iconContainer}>
-                <Ionicons name="book" size={size} color={color} />
+                <Ionicons name="gift" size={size} color={color} />
               </View>
             ),
           }}

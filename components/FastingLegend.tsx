@@ -18,7 +18,7 @@ export default function FastingLegend() {
         symbol: any | null;
         text: string;
     }
-    
+
     const renderItem = ({ item, index }: { item: FastingLegendItem; index: number }) => (
         <View
             style={[
