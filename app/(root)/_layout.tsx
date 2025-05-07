@@ -14,11 +14,10 @@ export default function RootLayout() {
           tabBarButton: HapticTab,
           tabBarBackground: TabBarBackground,
           tabBarStyle: styles.tabBar,
-          tabBarItemStyle: styles.tabBarItem,
-          tabBarLabelStyle: styles.tabBarLabel,
-          tabBarActiveTintColor: '#FFFFFF', // White for selected tab
-          tabBarInactiveTintColor: 'rgba(255,255,255,0.7)', // Slightly transparent white
-          tabBarShowLabel: false, // Changed from true to false to hide labels
+          tabBarActiveTintColor: '#FFFFFF',
+          tabBarInactiveTintColor: 'rgba(255,255,255,0.7)',
+          tabBarShowLabel: false,
+          tabBarIconStyle: styles.tabBarIcon,
         }}
       >
         <Tabs.Screen
@@ -26,9 +25,7 @@ export default function RootLayout() {
           options={{
             title: 'Calendar',
             tabBarIcon: ({ color, size }) => (
-              <View style={styles.iconContainer}>
-                <Ionicons name="calendar" size={size} color={color} />
-              </View>
+              <Ionicons name="calendar" size={26} color={color} />
             ),
           }}
         />
@@ -37,9 +34,7 @@ export default function RootLayout() {
           options={{
             title: 'Today',
             tabBarIcon: ({ color, size }) => (
-              <View style={styles.iconContainer}>
-                <Ionicons name="home" size={size} color={color} />
-              </View>
+              <Ionicons name="home" size={26} color={color} />
             ),
           }}
         />
@@ -48,9 +43,7 @@ export default function RootLayout() {
           options={{
             title: 'Donation',
             tabBarIcon: ({ color, size }) => (
-              <View style={styles.iconContainer}>
-                <Ionicons name="gift" size={size} color={color} />
-              </View>
+              <Ionicons name="gift" size={26} color={color} />
             ),
           }}
         />
@@ -65,36 +58,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#FBF9F8',
   },
   tabBar: {
-    backgroundColor: '#D9534F', // Brighter red
+    backgroundColor: '#D9534F',
+    height: 60,
     borderTopWidth: 0,
     elevation: 0,
     shadowOpacity: 0,
-    height: 60, // Reduced height
-    paddingBottom: 0,
-    borderRadius: 30, // More rounded
+    borderRadius: 30,
     marginHorizontal: 20,
     marginBottom: 10,
-    overflow: 'hidden',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  tabBarItem: {
-    paddingVertical: 8,
-  },
-  tabBarLabel: {
-    fontSize: 12,
-    fontWeight: '600',
-    marginBottom: 4,
-  },
-  iconContainer: {
-    padding: 4,
-  },
-  // Active indicator
-  tabBarIndicator: {
-    backgroundColor: 'rgba(255,255,255,0.3)',
-    height: 3,
-    width: '30%',
-    position: 'absolute',
-    bottom: 0,
-    left: '35%',
-    borderRadius: 2,
+  tabBarIcon: {
+    marginTop: 8, // This will push the icons down for better vertical centering
   },
 });
