@@ -28,10 +28,10 @@ interface YearData {
 }
 
 const fastingIcons: { [key: string]: any } = {
-  'Strict Fast': require('@/assets/icons/strict_fast_icon.webp'),
-  'Fast Day (Wine and Oil Allowed)': require('@/assets/icons/wine_oil_icon.webp'),
-  'Fast Day (Fish Allowed)': require('@/assets/icons/fish_icon.webp'),
-  'Fast Day (Dairy, Eggs, and Fish Allowed)': require('@/assets/icons/cheese_icon.webp'),
+  'Strict Fast': require('@/assets/icons/cross_icon.png'),
+  'Fast Day (Wine and Oil Allowed)': require('@/assets/icons/grape_icon.png'),
+  'Fast Day (Fish Allowed)': require('@/assets/icons/fish_icon.png'),
+  'Fast Day (Dairy, Eggs, and Fish Allowed)': require('@/assets/icons/cheese_icon.png'),
 };
 
 export default function Calendar() {
@@ -174,16 +174,18 @@ export default function Calendar() {
               disabled={!day}
             >
               {day && (
-                <>
+                <View style={styles.dayCellContent}>
                   <Text style={styles.dayNumber}>{day.date.split('-')[2]}</Text>
                   {day.fast_type && (
-                    <Image
-                      source={getFastIcon(day.fast_type)}
-                      style={styles.fastIcon}
-                      resizeMode="contain"
-                    />
+                    <View style={styles.fastIconContainer}>
+                      <Image
+                        source={getFastIcon(day.fast_type)}
+                        style={styles.fastIcon}
+                        resizeMode="contain"
+                      />
+                    </View>
                   )}
-                </>
+                </View>
               )}
             </TouchableOpacity>
           )}
@@ -194,6 +196,7 @@ export default function Calendar() {
       <Modal
         visible={showLegendModal}
         onClose={() => setShowLegendModal(false)}
+        contentStyle={styles.legendModalContent}
       >
         <FastingLegend />
       </Modal>
@@ -225,7 +228,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 8,
     marginBottom: 16,
-    alignSelf: 'center', // Changed from 'flex-start' to 'center'
+    alignSelf: 'center',
   },
   legendButtonText: {
     color: '#FBF9F8',
@@ -247,12 +250,19 @@ const styles = StyleSheet.create({
   dayCell: {
     width: '14.28%',
     aspectRatio: 1,
-    padding: 4,
+    padding: 2, // Reduced padding to give more space
     borderWidth: 1,
     borderColor: '#EEE',
     backgroundColor: '#FBF9F8',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  dayCellContent: {
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'space-between', // Distribute space between number and icon
+    paddingVertical: 2,
   },
   emptyDay: {
     backgroundColor: 'transparent',
@@ -265,13 +275,18 @@ const styles = StyleSheet.create({
   dayNumber: {
     fontWeight: 'bold',
     color: '#333',
-    marginBottom: 2,
+    fontSize: 12, // Slightly reduced font size
     textAlign: 'center',
   },
+  fastIconContainer: {
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1, // Take up available space
+  },
   fastIcon: {
-    width: 24,
-    height: 24,
-    marginBottom: 2,
+    width: 20, // Slightly reduced icon size
+    height: 20, // Slightly reduced icon size
     alignSelf: 'center',
   },
   loadingContainer: {
@@ -304,5 +319,10 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: '#CF4A46',
     textAlign: 'center',
+  },
+  legendModalContent: {
+    flex: 1,
+    height: '80%',
+    paddingBottom: 0,
   },
 });
