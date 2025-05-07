@@ -1,11 +1,10 @@
 import { StyleSheet, View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { useState, useEffect } from 'react';
-import FastingLegend from '@/components/FastingLegend'; // Add this import
+import FastingLegend from '@/components/FastingLegend';
 import Modal from '@/components/Modal';
 import { fastingRules } from '@/constants/FastingRules';
 
 const DATA_URL = process.env.EXPO_PUBLIC_DATA_URL;
-
 
 interface ReadingItem {
   reference?: string;
@@ -104,13 +103,6 @@ export default function CalendarView({ date }: CalendarViewProps) {
           <View style={styles.section}>
             <Text style={styles.sectionHeader}>{data.fast_type}</Text>
             <View style={[styles.fastContainer, { justifyContent: 'center' }]}>
-              {fastInfo?.symbol && (
-                <Image
-                  source={fastInfo.symbol}
-                  style={{ width: 25, height: 25 }}
-                  resizeMode="contain"
-                />
-              )}
             </View>
           </View>
         )}
@@ -173,10 +165,11 @@ export default function CalendarView({ date }: CalendarViewProps) {
         </ScrollView>
       </Modal>
 
-      {/* Fasting Legend Modal - Now using the FastingLegend component */}
+      {/* Fasting Legend Modal */}
       <Modal
         visible={showLegendModal}
         onClose={() => setShowLegendModal(false)}
+        contentStyle={styles.legendModalContent}
       >
         <FastingLegend />
       </Modal>
@@ -184,7 +177,7 @@ export default function CalendarView({ date }: CalendarViewProps) {
   );
 }
 
-// Keep the existing styles unchanged
+// Keep the existing styles and add the new legendModalContent style
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -296,5 +289,10 @@ const styles = StyleSheet.create({
     color: '#333',
     fontSize: 16,
     lineHeight: 24,
+  },
+  legendModalContent: {
+    flex: 1,
+    height: '80%',
+    paddingBottom: 0,
   },
 });
