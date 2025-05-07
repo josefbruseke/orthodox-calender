@@ -16,6 +16,31 @@ const Modal: React.FC<ModalProps> = ({
     children,
     contentStyle,
 }) => {
+    // Helper function to ensure children have keys
+    const ensureChildrenHaveKeys = (children: React.ReactNode) => {
+        if (React.Children.count(children) > 0) {
+            return React.Children.map(children, (child, index) => {
+                if (React.isValidElement(child)) {
+                    return React.cloneElement(child, { key: child.key || `child-${index}` });
+                }
+                return child;
+            });
+        }
+        return children;
+    };
+
+    // Determine if we should wrap the content in a ScrollView
+    const needsScrollView = typeof children === 'string';
+
+    // Prepare content to be rendered
+    const contentToRender = needsScrollView ? (
+        <ScrollView>
+            <Text style={styles.modalText}>{children}</Text>
+        </ScrollView>
+    ) : (
+        ensureChildrenHaveKeys(children)
+    );
+
     return (
         <RNModal
             visible={visible}
@@ -28,14 +53,10 @@ const Modal: React.FC<ModalProps> = ({
                     <TouchableOpacity style={styles.closeButton} onPress={onClose}>
                         <Text style={styles.closeButtonText}>×</Text>
                     </TouchableOpacity>
+
                     {title && <Text style={styles.modalTitle}>{title}</Text>}
-                    {typeof children === 'string' ? (
-                        <ScrollView>
-                            <Text style={styles.modalText}>{children}</Text>
-                        </ScrollView>
-                    ) : (
-                        children
-                    )}
+
+                    {contentToRender}
                 </View>
             </View>
         </RNModal>
@@ -53,9 +74,10 @@ const styles = StyleSheet.create({
     modalContent: {
         backgroundColor: '#FBF9F8',
         borderRadius: 10,
-        padding: 20,
-        width: '90%',
+        padding: 10,
+        width: '95%',
         maxHeight: '80%',
+        flex: 0, // This ensures content doesn't expand beyond maxHeight
     },
     modalTitle: {
         color: '#CF4A46',
