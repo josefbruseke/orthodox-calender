@@ -4,7 +4,6 @@ import { StyleSheet, Text, TouchableOpacity, View, ScrollView } from 'react-nati
 export default function AboutUsScreen() {
     return (
         <ScrollView style={styles.container}>
-            return (
             <View style={styles.container}>
                 <Text style={styles.header}>About Us</Text>
                 <View style={styles.card}>
@@ -26,7 +25,6 @@ export default function AboutUsScreen() {
                     </TouchableOpacity>
                 </View>
             </View>
-            );
         </ScrollView>
     );
 }
