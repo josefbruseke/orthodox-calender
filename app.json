@@ -22,7 +22,8 @@
       "bundler": "metro",
       "output": "static",
       "favicon": "./assets/images/favicon.png"
-    },    "plugins": [
+    },
+    "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
@@ -34,9 +35,7 @@
         }
       ],
       "expo-font",
-      ["expo-web-browser", {
-        "packageClassName": "expo.modules.webbrowser.WebBrowserPackage"
-      }]
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true
