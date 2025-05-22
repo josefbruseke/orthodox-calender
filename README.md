@@ -1,50 +1,67 @@
-# Welcome to your Expo app 👋
+# Orthodox Calendar App ☦️
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A mobile application for Orthodox Christians to access the daily calendar, readings, saints, and fasting information. Developed by the Saint John the Theologian Orthodox Mission in São José, Santa Catarina, Brazil, under the jurisdiction of the Ecumenical Patriarchate of Constantinople.
 
-## Get started
+## Features
 
-1. Install dependencies
+- **Daily Calendar**: View the current day's saints, feasts, and fasting rules
+- **Monthly Calendar**: Browse the entire month with fasting indicators for each day
+- **Scripture Readings**: Access the daily Gospel, Epistle, and Old Testament readings
+- **Fasting Guide**: Visual indicators and explanations of Orthodox fasting rules
+- **Multilingual Support**: Available for various Orthodox communities
 
+## Getting Started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (v16 or newer)
+- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+- [Expo CLI](https://docs.expo.dev/get-started/installation/)
+
+### Installation
+
+1. Clone the repository
+   ```bash
+   git clone https://github.com/yourusername/orthodox-calender.git
+   cd orthodox-calender
+   ```
+
+2. Install dependencies
    ```bash
    npm install
    ```
 
-2. Start the app
-
+3. Start the development server
    ```bash
-    npx expo start
+   npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+### Running on Devices
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- **iOS**: Press `i` in the terminal or scan the QR code with your iOS device
+- **Android**: Press `a` in the terminal or scan the QR code with your Android device using Expo Go
+- **Web**: Press `w` in the terminal to open the web version
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Support the Mission
 
-## Get a fresh project
+If you'd like to support the spread of Orthodox Christianity in Brazil, please consider making a donation through the app's donation page.
 
-When you're ready, run:
+## Contributing
 
-```bash
-npm run reset-project
-```
+We welcome contributions to improve the Orthodox Calendar app! Please feel free to submit issues and pull requests.
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## License
 
-## Learn more
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-To learn more about developing your project with Expo, look at the following resources:
+## Acknowledgments
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+- Data provided by the Orthodox liturgical calendar
+- Icons created with traditional Orthodox symbolism
+- Built with [Expo](https://expo.dev) and [React Native](https://reactnative.dev/)
 
-## Join the community
+## Contact
 
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+For questions about the app or the mission, please contact:
+- Saint John the Theologian Orthodox Mission
+- São José, Santa Catarina, Brazil
