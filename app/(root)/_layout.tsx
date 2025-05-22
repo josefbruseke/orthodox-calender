@@ -39,9 +39,9 @@ export default function RootLayout() {
           }}
         />
         <Tabs.Screen
-          name="donation"
+          name="about-us"
           options={{
-            title: 'Donation',
+            title: 'About us',
             tabBarIcon: ({ color, size }) => (
               <Ionicons name="gift" size={26} color={color} />
             ),
@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FBF9F8',
+    paddingTop: 20, // Add padding to the top of the container
   },
   tabBar: {
     backgroundColor: '#D9534F',

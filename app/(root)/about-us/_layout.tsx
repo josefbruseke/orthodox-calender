@@ -3,7 +3,8 @@ import { Stack } from "expo-router";
 export default function DonationLayout() {
     return (
         <Stack screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="checkout" />
+            <Stack.Screen name="index" options={{ title: "Donation" }} />
+            <Stack.Screen name="donation" options={{ title: "Donate" }} />
         </Stack>
     );
 }
