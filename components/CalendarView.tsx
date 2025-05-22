@@ -1,7 +1,8 @@
-import { StyleSheet, View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, ScrollView, TouchableOpacity, Platform } from 'react-native';
 import { useState, useEffect } from 'react';
 import FastingLegend from '@/components/FastingLegend';
 import Modal from '@/components/Modal';
+import ReadingsModal from '@/components/ReadingsModal'; // Import the new ReadingsModal
 import { fastingRules } from '@/constants/FastingRules';
 
 const DATA_URL = process.env.EXPO_PUBLIC_DATA_URL;
@@ -92,18 +93,9 @@ export default function CalendarView({ date }: CalendarViewProps) {
 
         <Text style={styles.title}>{data?.summary || 'Loading...'}</Text>
 
-        <TouchableOpacity
-          style={styles.legendButton}
-          onPress={() => setShowLegendModal(true)}
-        >
-          <Text style={styles.legendButtonText}>Fasting Legend</Text>
-        </TouchableOpacity>
-
         {data?.fast_type && (
-          <View style={styles.section}>
-            <Text style={styles.sectionHeader}>{data.fast_type}</Text>
-            <View style={[styles.fastContainer, { justifyContent: 'center' }]}>
-            </View>
+          <View style={styles.fastTypeContainer}>
+            <Text style={styles.fastTypeText}>{data.fast_type}</Text>
           </View>
         )}
 
@@ -131,6 +123,7 @@ export default function CalendarView({ date }: CalendarViewProps) {
                     <TouchableOpacity
                       key={`${key}-${index}`}
                       onPress={() => handleReadingPress(item)}
+                      style={styles.readingButton}
                     >
                       <Text style={[styles.readingText, styles.readingLink]}>
                         {item.reference}
@@ -154,16 +147,18 @@ export default function CalendarView({ date }: CalendarViewProps) {
         )}
       </ScrollView>
 
-      {/* Readings Modal */}
-      <Modal
-        visible={showReadingsModal}
-        onClose={() => setShowReadingsModal(false)}
-        title={selectedReading?.reference}
-      >
-        <ScrollView>
-          <Text style={styles.modalText}>{selectedReading?.text}</Text>
-        </ScrollView>
-      </Modal>
+      {/* Use the new ReadingsModal component */}
+      {selectedReading && (
+        <ReadingsModal
+          visible={showReadingsModal}
+          onClose={() => {
+            setShowReadingsModal(false);
+            // Small delay before clearing the reading data to allow animation to complete
+            setTimeout(() => setSelectedReading(null), 300);
+          }}
+          reading={selectedReading}
+        />
+      )}
 
       {/* Fasting Legend Modal */}
       <Modal
@@ -177,7 +172,7 @@ export default function CalendarView({ date }: CalendarViewProps) {
   );
 }
 
-// Keep the existing styles and add the new legendModalContent style
+// Updated styles with better styling for fast type display
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -243,6 +238,13 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     textAlign: 'center',
   },
+  readingButton: {
+    padding: 8,
+    backgroundColor: '#f0f0f0',
+    borderRadius: 6,
+    marginVertical: 4,
+    alignItems: 'center',
+  },
   readingText: {
     color: '#333',
     fontSize: 15,
@@ -252,7 +254,7 @@ const styles = StyleSheet.create({
   },
   readingLink: {
     color: '#CF4A46',
-    textDecorationLine: 'underline',
+    fontWeight: '500',
   },
   saintText: {
     color: '#333',
@@ -261,6 +263,24 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     textAlign: 'center',
     paddingHorizontal: 8,
+  },
+  fastTypeContainer: {
+    backgroundColor: '#f8e9c6',
+    borderRadius: 6,
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    alignSelf: 'center',
+    borderWidth: 1,
+    borderColor: '#e8c874',
+    minWidth: '60%',
+    marginBottom: 16,
+  },
+  fastTypeText: {
+    color: '#864c24',
+    fontSize: 16,
+    fontWeight: '600',
+    textAlign: 'center',
+    textTransform: 'capitalize',
   },
   fastContainer: {
     flexDirection: 'row',
@@ -284,11 +304,6 @@ const styles = StyleSheet.create({
     color: '#FBF9F8',
     fontWeight: 'bold',
     fontSize: 16,
-  },
-  modalText: {
-    color: '#333',
-    fontSize: 16,
-    lineHeight: 24,
   },
   legendModalContent: {
     flex: 1,
