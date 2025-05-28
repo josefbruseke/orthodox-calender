@@ -31,7 +31,7 @@ export default function Donation() {
 
             <ScrollView contentContainerStyle={styles.content}>
                 <View style={styles.card}>
-                    <Text style={styles.title}>Support Options</Text>
+                    <Text style={styles.title}>Supported Options</Text>
 
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity
@@ -47,12 +47,15 @@ export default function Donation() {
                         {showCopiedMessage && (
                             <View style={styles.notification}>
                                 <Text style={styles.notificationText}>
-                                    ✅ Chave PIX copiada: 05.369.204.0001/18
+                                    ✅ Chave PIX copiada
                                 </Text>
                             </View>
                         )}
 
-                        <TouchableOpacity style={styles.button}>
+                        <TouchableOpacity
+                            style={styles.button}
+                            onPress={() => router.push('https://donate.stripe.com/test_cN2g0OeBOf9S2c07st')}
+                        >
                             <View style={styles.buttonInner}>
                                 <Text style={styles.buttonText}>Credit Card (BRL)</Text>
                                 <Text style={styles.flagEmoji}>🇧🇷</Text>
