@@ -29,9 +29,9 @@ interface YearData {
 
 const fastingIcons: { [key: string]: any } = {
   'Strict Fast': require('@/assets/icons/cross_icon.png'),
-  'Fast Day (Wine and Oil Allowed)': require('@/assets/icons/grape_icon.png'),
-  'Fast Day (Fish Allowed)': require('@/assets/icons/fish_icon.png'),
-  'Fast Day (Dairy, Eggs, and Fish Allowed)': require('@/assets/icons/cheese_icon.png'),
+  'Wine and Oil Allowed': require('@/assets/icons/grape_icon.png'),
+  'Fish Allowed': require('@/assets/icons/fish_icon.png'),
+  'Dairy, Eggs, and Fish Allowed': require('@/assets/icons/cheese_icon.png'),
 };
 
 export default function Calendar() {
