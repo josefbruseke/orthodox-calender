@@ -4,6 +4,7 @@ import FastingLegend from '@/components/FastingLegend';
 import Modal from '@/components/Modal';
 import ReadingsModal from '@/components/ReadingsModal'; // Import the new ReadingsModal
 import { fastingRules } from '@/constants/FastingRules';
+import { Ionicons } from '@expo/vector-icons'; // Add this import for the magnifying glass icon
 
 const DATA_URL = process.env.EXPO_PUBLIC_DATA_URL;
 
@@ -125,9 +126,17 @@ export default function CalendarView({ date }: CalendarViewProps) {
                       onPress={() => handleReadingPress(item)}
                       style={styles.readingButton}
                     >
-                      <Text style={[styles.readingText, styles.readingLink]}>
-                        {item.reference}
-                      </Text>
+                      <View style={styles.readingButtonContent}>
+                        <Text style={[styles.readingText, styles.readingLink]}>
+                          {item.reference}
+                        </Text>
+                        <Ionicons
+                          name="search"
+                          size={20}
+                          color="#CF4A46"
+                          style={styles.readingIcon}
+                        />
+                      </View>
                     </TouchableOpacity>
                   ))}
                 </View>
@@ -239,11 +248,20 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   readingButton: {
-    padding: 8,
+    padding: 12,
     backgroundColor: '#f0f0f0',
     borderRadius: 6,
     marginVertical: 4,
     alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#e0e0e0',
+  },
+  readingButtonContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+    width: '100%',
   },
   readingText: {
     color: '#333',
@@ -255,6 +273,10 @@ const styles = StyleSheet.create({
   readingLink: {
     color: '#CF4A46',
     fontWeight: '500',
+  },
+  readingIcon: {
+    position: 'absolute',
+    right: 16,
   },
   saintText: {
     color: '#333',
